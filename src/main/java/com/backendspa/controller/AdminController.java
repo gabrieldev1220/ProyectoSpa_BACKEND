@@ -118,13 +118,6 @@ public class AdminController {
         return ResponseEntity.ok(reservaService.getAllReservas());
     }
 
-    // Endpoint separado para RECEPCIONISTA
-    @GetMapping("/recepcionista/reservas")
-    @PreAuthorize("hasRole('ROLE_RECEPCIONISTA')")
-    public ResponseEntity<List<Reserva>> getReservasForRecepcionista() {
-        return ResponseEntity.ok(reservaService.getAllReservas());
-    }
-
     @GetMapping("/reservas/{id}")
     public ResponseEntity<Reserva> getReservaById(@PathVariable Long id) {
         return reservaService.getReservaById(id)

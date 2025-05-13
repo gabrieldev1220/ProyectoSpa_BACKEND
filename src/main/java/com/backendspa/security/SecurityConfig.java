@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**", "/api/auth/register").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("GERENTE_GENERAL") // Solo GERENTE_GENERAL
+                        .requestMatchers("/api/recepcionista/**").hasRole("RECEPCIONISTA") // Nueva regla para rol RECEPCIONISTA
                         .requestMatchers("/api/clientes/**").authenticated()
                         .requestMatchers("/api/servicios/**").authenticated()
                         .requestMatchers("/api/empleados/**").authenticated()
