@@ -37,9 +37,15 @@ public class EmpleadoService {
                 Empleado.Rol.RECEPCIONISTA,
                 Empleado.Rol.GERENTE_GENERAL
         );
-        return empleadoRepository.findAll().stream()
+        List<Empleado> empleadosFiltrados = empleadoRepository.findAll().stream()
                 .filter(empleado -> rolesPermitidos.contains(empleado.getRol()))
                 .collect(Collectors.toList());
+        // Log para depuración
+        System.out.println("Empleados devueltos por getEmpleadosForReservas():");
+        empleadosFiltrados.forEach(empleado ->
+                System.out.println(" - " + empleado.getNombre() + " " + empleado.getApellido() + ", Rol: " + empleado.getRol())
+        );
+        return empleadosFiltrados;
     }
 
     public Optional<Empleado> getEmpleadoById(Long id) {

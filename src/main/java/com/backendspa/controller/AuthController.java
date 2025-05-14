@@ -59,7 +59,7 @@ public class AuthController {
             // Log para depuración
             String role = userDetails.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
             System.out.println("UserDetails: id=" + userDetails.getId() + ", userType=" + userDetails.getUserType() + ", rol=" + role);
-            System.out.println("Roles completos del usuario: " + userDetails.getAuthorities());
+
 
             Map<String, Object> response = new HashMap<>();
             response.put("jwt", jwt);

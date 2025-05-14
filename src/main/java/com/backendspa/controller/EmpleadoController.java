@@ -25,6 +25,17 @@ public class EmpleadoController {
         return ResponseEntity.ok(empleadoService.getEmpleadosForReservas());
     }
 
+    @GetMapping("/reservas")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<Empleado>> getEmpleadosForReservas() {
+        List<Empleado> empleados = empleadoService.getEmpleadosForReservas();
+        System.out.println("GET /api/empleados/reservas - Empleados devueltos:");
+        empleados.forEach(empleado ->
+                System.out.println(" - " + empleado.getNombre() + " " + empleado.getApellido() + ", Rol: " + empleado.getRol())
+        );
+        return ResponseEntity.ok(empleados);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('CLIENTE', 'RECEPCIONISTA', 'GERENTE_GENERAL')")
     public ResponseEntity<?> getEmpleadoById(@PathVariable Long id) {
