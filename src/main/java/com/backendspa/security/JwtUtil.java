@@ -60,6 +60,11 @@ public class JwtUtil {
         return extractAllClaims(token).get("id", Long.class);
     }
 
+    // Nuevo método para extraer los roles del token
+    public List<String> extractRoles(String token) {
+        return extractAllClaims(token).get("roles", List.class);
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }

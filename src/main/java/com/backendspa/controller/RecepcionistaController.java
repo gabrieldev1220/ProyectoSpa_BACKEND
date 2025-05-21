@@ -72,4 +72,12 @@ public class RecepcionistaController {
     public ResponseEntity<List<Cliente>> getClientesForRecepcionista() {
         return ResponseEntity.ok(clienteService.getAllClientes());
     }
+
+    @GetMapping("/clientes/{id}")
+    @PreAuthorize("hasRole('ROLE_RECEPCIONISTA')")
+    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
+        return clienteService.getClienteById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 }

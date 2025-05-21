@@ -123,6 +123,16 @@ public class ClienteController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // api para el cliente actualmente logeado.
+    @GetMapping("/actual")
+    public ResponseEntity<Cliente> getClienteByToken(Authentication authentication) {
+        SpaUserDetails userDetails = (SpaUserDetails) authentication.getPrincipal();
+        Long clienteId = userDetails.getId();
+        return clienteService.getClienteById(clienteId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }
+
     @PutMapping("/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
         return clienteService.updateCliente(id, clienteDetails);
