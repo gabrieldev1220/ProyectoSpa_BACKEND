@@ -2,6 +2,9 @@
 target/
 *.jar
 *.war
+.mvn/
+mvnw
+mvnw.cmd
 
 # Excluir configuraciones locales y sensibles
 application.properties
@@ -12,6 +15,7 @@ application*.yml
 # Excluir archivos de IntelliJ IDEA
 .idea/
 *.iml
+*.yml
 
 # Excluir archivos de otros IDEs y herramientas
 .classpath
@@ -36,5 +40,4 @@ nbdist/
 *.txt
 
 # Excluir archivos de configuración de Fly.io
-fly.toml
 .dockerignore
