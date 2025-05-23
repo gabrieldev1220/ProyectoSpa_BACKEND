@@ -20,7 +20,7 @@ public class EmpleadoController {
     private EmpleadoService empleadoService;
 
     @GetMapping
-    @PreAuthorize("hasRole('CLIENTE')")
+    @PreAuthorize("hasAuthority('ROLE_CLIENTE')")
     public ResponseEntity<List<Empleado>> getAllEmpleados() {
         return ResponseEntity.ok(empleadoService.getEmpleadosForReservas());
     }
@@ -37,7 +37,7 @@ public class EmpleadoController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('CLIENTE', 'RECEPCIONISTA', 'GERENTE_GENERAL')")
+    @PreAuthorize("hasAnyAuthority('ROLE_CLIENTE', 'ROLE_RECEPCIONISTA', 'ROLE_GERENTE_GENERAL')")
     public ResponseEntity<?> getEmpleadoById(@PathVariable Long id) {
         Optional<Empleado> empleado = empleadoService.getEmpleadoById(id);
         if (empleado.isPresent()) {
@@ -50,7 +50,7 @@ public class EmpleadoController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('GERENTE_GENERAL')")
+    @PreAuthorize("hasAuthority('ROLE_GERENTE_GENERAL')")
     public ResponseEntity<?> createEmpleado(@RequestBody Empleado empleado) {
         try {
             Empleado nuevoEmpleado = empleadoService.createEmpleado(empleado);
@@ -61,7 +61,7 @@ public class EmpleadoController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('GERENTE_GENERAL')")
+    @PreAuthorize("hasAuthority('ROLE_GERENTE_GENERAL')")
     public ResponseEntity<?> updateEmpleado(@PathVariable Long id, @RequestBody Empleado empleadoDetails) {
         try {
             Empleado updatedEmpleado = empleadoService.updateEmpleado(id, empleadoDetails);
@@ -72,11 +72,11 @@ public class EmpleadoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('GERENTE_GENERAL')")
+    @PreAuthorize("hasAuthority('ROLE_GERENTE_GENERAL')")
     public ResponseEntity<?> deleteEmpleado(@PathVariable Long id) {
         try {
             empleadoService.deleteEmpleado(id);
-            return ResponseEntity.ok("Empleado eliminado exitosamente");
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al eliminar el empleado: " + e.getMessage());
         }

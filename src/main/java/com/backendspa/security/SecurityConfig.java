@@ -50,8 +50,9 @@ public class SecurityConfig {
                         // Permitir solicitudes OPTIONS sin autenticación
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**", "/api/auth/register").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("GERENTE_GENERAL") // Solo GERENTE_GENERAL
-                        .requestMatchers("/api/recepcionista/**").hasRole("RECEPCIONISTA") // Nueva regla para rol RECEPCIONISTA
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_GERENTE_GENERAL") // Solo GERENTE_GENERAL
+                        .requestMatchers("/api/roles/**").hasAuthority("ROLE_GERENTE_GENERAL") // Solo GERENTE_GENERAL
+                        .requestMatchers("/api/recepcionista/**").hasAuthority("ROLE_RECEPCIONISTA") // Nueva regla para rol RECEPCIONISTA
                         .requestMatchers("/api/clientes/**").authenticated()
                         .requestMatchers("/api/servicios/**").authenticated()
                         .requestMatchers("/api/empleados/**").authenticated()
