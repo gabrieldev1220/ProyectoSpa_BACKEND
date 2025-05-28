@@ -35,6 +35,8 @@ public class EmpleadoService {
                 Empleado.Rol.TERAPEUTA_SPA,
                 Empleado.Rol.COORDINADOR_AREA,
                 Empleado.Rol.RECEPCIONISTA,
+                Empleado.Rol.INSTRUCTOR_YOGA,
+                Empleado.Rol.NUTRICIONISTA,
                 Empleado.Rol.GERENTE_GENERAL
         );
         List<Empleado> empleadosFiltrados = empleadoRepository.findAll().stream()
